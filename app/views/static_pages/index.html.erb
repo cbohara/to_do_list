@@ -15,12 +15,19 @@
 <script>
 
   $(function() {
-    $('#new-form').submit(function(event){
+    $('#new-form').submit(function(event) {
       event.preventDefault();
       var textbox = $('.new-todo');
-      console.log("Task: ", textbox.val());
+      var payload = {
+        task: {
+          title: textbox.val()
+        }
+      };
+      $.post("/tasks", payload).success(function(data) {
+        console.log("Successful HTTP Request");
+      });
     });
-
+    
     function taskHtml(task){
       var checkedStatus = task.done ? "checked" : "";
       var liElement = '<li><div class="view"><input class="toggle" type="checkbox"' +
